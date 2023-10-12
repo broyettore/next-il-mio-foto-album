@@ -1,0 +1,35 @@
+.myArticle {
+    width: calc(98% / 3);
+    border: 1px solid brown;
+    border-radius: 15px;
+    margin-bottom: 15px;
+
+    opacity: 0; /* Initially hide the content */
+    animation: slideAndFadeIn 1s forwards; /* Animation duration and fill-mode */
+    animation-delay: 1s; /* Delay before the animation starts */
+    transform: translateY(-50px); /* Move the content up initially */
+}
+
+
+.msImg {
+    width: 100%;
+    max-height: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+
+
+@keyframes slideAndFadeIn {
+from {
+    opacity: 0;
+    transform: translateY(-50px); /* Start position: move up */
+}
+
+to {
+    opacity: 1;
+    transform: translateY(0); /* End position: slide down */
+}
+}
