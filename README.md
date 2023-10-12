@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Online Photo Gallery
 
-## Getting Started
+Ci hanno commissionato un lavoro: un fotografo vuole mostrare agli utenti le foto più belle che ha scattato e ci chiede di realizzare una webapp che permetta questo.
 
-First, run the development server:
+Ha bisogno di un’area di amministrazione per gestire le foto, quindi:
+* vedere tutte quelle inserite (filtrabili)
+* vedere i dettagli di una singola foto
+* aggiungerne di nuove (con validazione)
+* modificarle (con validazione)
+* cancellarle
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Ovviamente queste operazioni può svolgerle solo lui, quindi l’accesso alle pagine deve essere protetto da autenticazione e autorizzazione.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Una foto contiene almeno le seguenti informazioni :
+* titolo
+* descrizione
+* immagine (upload)
+* visibile
+* categorie
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Una foto può essere collegata a più categorie, e una categoria può essere collegata a più foto. Prevedere quindi anche una semplice pagina di lista, creazione e cancellazione categorie.
+Deve essere presente anche una homepage pubblica, nella quale le foto (visibili) sono mostrate agli utenti. Devono essere filtrabili per titolo.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Prevedere sempre nell’homepage pubblica un semplice form di contatto avente i campi email e messaggio.
+Il click sul tasto invia farà partire una richiesta a una nuova api che salverà sul database il messaggio inviato.
 
-## Learn More
+L'area di amministrazione va realizzata sfruttando Razor + controller MVC. La pagina pubblica e l'invio dei messaggi di contatto devono essere gestiti tramite javascript + webapi.
 
-To learn more about Next.js, take a look at the following resources:
+### Bonus
+La webapp originariamente progettata per un fotografo che vuole mostrare le sue foto, è stata evoluta in una piattaforma multiutente che consente a diversi utenti, come altri fotografi, di utilizzarla per condividere le loro foto.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Per fare queste operazioni gli utenti avranno il ruolo di amministratori, ma soltanto delle loro foto, non di quelle degli altri. E’ importante quindi poter gestire un livello di protezione adeguato. È stata inoltre introdotta la figura del superadmin, che ha il potere di nascondere qualsiasi foto presente nella piattaforma per aumentare la sicurezza e la moderazione delle foto. Il superadmin quindi potrà agire sulla visibilità pubblica delle foto e nasconderle a tutti gli utenti.
