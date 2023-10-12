@@ -13,4 +13,5 @@ export interface Photo {
 export interface Category {
     id: number,
     name: string
+    photos: null,
 }

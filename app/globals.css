@@ -4,11 +4,62 @@
 
 
 main {
-  height: calc(100vh - 80px);
+  min-height: calc(100vh - 144px);
 }
 
-.ms-ctn {
+.jumbo {
+  height: 100vh;
+}
+
+.detailPage-img {
+  height: 300px;
+  width: 300px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+/********** main page css *********/
+.left, .right {
   height: 100%;
 }
 
+.left {
+  width: 45%;
+  height: 40%;
+}
+
+.right {
+  width: 45%;
+  height: 80%;
+  position: relative;
+}
+
+.mp-h2 {
+  line-height: 70px;
+}
+
+.mp-mainImg {
+  max-height: 800px;
+  z-index: 50;
+}
+
+.blob1, .blob2, .blob3 {
+  z-index: 20;
+  position: absolute;
+  height: 200px;
+}
+
+.blob1 {
+  top: 0;
+  left: 20px;
+}
+
+.blob2 {
+  bottom: 0;
+  left: 0;
+}
+
+.blob3 {
+  bottom: 40%;
+  right: 0;
+}
 

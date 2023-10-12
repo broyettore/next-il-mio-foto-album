@@ -39,23 +39,29 @@ const Allphotos = () => {
   return (
     <>
       <SearchBar onSearch={setSearchQuery} />
-      <div className="container flex justify-between flex-wrap p-5">
-        {filteredPhotos.map((p) => (
-          <Link href={`/photos/${p.id}`} key={p.id} className={styles.myArticle}>
-            <article>
-              <figure>
-                <img src={p.imageSrc} className={styles.msImg} alt={p.title} />
-                </figure>
-              <div className="py-3 px-3">
-                <h2 className="card-title">{p.title}</h2>
-                <p className='my-3'>{p.description.slice(0, 120)}...</p>
-                <div className="card-actions">
-                  <Link href={`/photos/${p.id}`} className="btn btn-primary hover:scale-110">Read More...</Link>
-                </div>
-              </div>
-            </article>
-          </Link>
-        ))}
+      <div className="container h-full flex justify-between flex-wrap p-5">
+        {filteredPhotos.map((p) => {
+          if (p.isVisible) {
+            return (
+              <Link href={`/photos/${p.id}`} key={p.id} className={styles.myArticle}>
+                <article>
+                  <figure>
+                    <img src={p.imageSrc} className={styles.msImg} alt={p.title} />
+                  </figure>
+                  <div className="py-3 px-3">
+                    <h2 className="card-title">{p.title}</h2>
+                    <p className='my-3'>{p.description.slice(0, 120)}...</p>
+                    <div className="card-actions">
+                      <button className="btn btn-primary hover:scale-110">Read More...</button>
+                    </div>
+                  </div>
+                </article>
+              </Link>
+            );
+          }
+          return null; // Return null for items where IsVisible is false
+        })}
+
       </div>
     </>
   )

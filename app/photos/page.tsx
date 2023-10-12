@@ -2,7 +2,7 @@ import Allphotos from "./Allphotos"
 
 const PhotoPage = () => {
   return (
-    <div className="container mx-auto ms-ctn">
+    <div className="container mx-auto h-full">
       <Allphotos />
     </div>
   )
