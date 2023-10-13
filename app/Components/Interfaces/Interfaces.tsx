@@ -1,5 +1,4 @@
 export interface Photo {
-
     id: number,
     title: string,
     description: string,
@@ -8,7 +7,8 @@ export interface Photo {
     imageFile: string,
     imageSrc: string,
     userId: number,
-    categories: Category[]
+    categories: Category[],
+    messages: Message[];
 }
 
 export interface Category {
@@ -16,3 +16,11 @@ export interface Category {
     name: string
     photos: Photo[],
 }
+
+export interface Message {
+    id: number;
+    email: string;
+    msgContent: string;
+    photoId: number;
+    photo: Photo;
+  }

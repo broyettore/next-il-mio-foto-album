@@ -1,24 +1,26 @@
 'use client'
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 import { Photo } from '@/app/Components/Interfaces/Interfaces';
 
 interface Props {
-  idParams: number
+  idParams: number;
 }
 
-const PhotoById = ({ idParams }: Props) => {
-
-  // Photo
+const PhotoById: React.FC<Props> = ({ idParams }) => {
   const [photo, setPhoto] = useState<Photo | null>(null);
+  const [email, setEmail] = useState('');
+  const [msgContent, setMsgContent] = useState('');
 
-  // Get photo by id
   useEffect(() => {
     const fetchPhotoById = async () => {
       try {
         const response = await fetch(`https://localhost:7085/api/Photos/GetPhotoById/${idParams}`);
-        const fetchedPhoto = await response.json();
-        setPhoto(fetchedPhoto);
-
+        if (response.ok) {
+          const fetchedPhoto = await response.json();
+          setPhoto(fetchedPhoto);
+        } else {
+          console.error('Error fetching photo:', response.statusText);
+        }
       } catch (error) {
         console.error('Error fetching photo:', error);
       }
@@ -26,6 +28,37 @@ const PhotoById = ({ idParams }: Props) => {
 
     fetchPhotoById();
   }, [idParams]);
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+  
+    const messageData = {
+      email,
+      msgContent
+    };
+  
+    try {
+      const response = await fetch(`https://localhost:7085/api/Messages/Create/${idParams}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(messageData)
+      });
+  
+      if (!response.ok) {
+        const errorText = await response.text();  // Get the error text if available
+        console.error('Error sending message. HTTP Status:', response.status, ' - ', errorText);
+      } else {
+        console.log('Message sent successfully!');
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+    }
+  };
+  
+  
+  
 
   return (
     <>
@@ -49,8 +82,35 @@ const PhotoById = ({ idParams }: Props) => {
       ) : (
         <p>Not Found...</p>
       )}
-    </>
-  )
-}
 
-export default PhotoById
+      {/* Message Form */}
+      <div>
+        <h2>Send a Message</h2>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="msgContent">Message Content:</label>
+            <textarea
+              id="msgContent"
+              value={msgContent}
+              onChange={(e) => setMsgContent(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+    </>
+  );
+};
+
+export default PhotoById;
