@@ -1,6 +1,5 @@
 'use client'
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { Photo } from '@/app/Components/Interfaces/Interfaces';
 
 interface Props {
@@ -8,8 +7,6 @@ interface Props {
 }
 
 const PhotoById = ({ idParams }: Props) => {
-  //router
-  const router = useRouter();
 
   // Photo
   const [photo, setPhoto] = useState<Photo | null>(null);
@@ -30,53 +27,28 @@ const PhotoById = ({ idParams }: Props) => {
     fetchPhotoById();
   }, [idParams]);
 
-  // redirect to update form
-  const handleUpdatePizza = () => {
-    router.push(`/photos/update/${idParams}`);
-  };
-
-  // deletes photo by id
-  const deletePhotoById = async () => {
-    try {
-      if (photo) {
-        const response = await fetch(`https://localhost:7085/api/Photos/Delete/${idParams}`, {
-          method: 'DELETE',
-        });
-
-        if(response.ok) {
-          console.log("Photo was deleted successfully")
-          router.push("/photos");
-        } else {
-          console.error("Failed to delete the photo");
-        }
-      }
-    } catch (error) {
-      console.error("an error has occurred:", error)
-    }
-  };
-
   return (
     <>
-    {photo ? (
-      <div>
-      <div className="img-ctn mb-5">
-        <img src={photo.imageSrc} alt={photo.title} className='detailPage-img'/>
-      </div>
-      <h2 className='my-1'>Title: {photo.title}</h2>
-      <p>Description: {photo.description}</p>
-      <p>Category: {photo.categories.id}</p>
-      <div className="btn-ctn">
-        <button onClick={handleUpdatePizza} className="btn btn-info mr-2">
-          Update
-        </button>
-        <button onClick={deletePhotoById} className="btn btn-danger mt-5">
-          Delete
-        </button>
-      </div>
-    </div>
-    ) : (
-      <p>Not Found...</p>
-    )}
+      {photo ? (
+        <div>
+          <h2 className='my-2 text-2xl mb-5'><span className='font-semibold'>Title:</span> {photo.title}</h2>
+          <div className="img-ctn mb-5">
+            <img src={photo.imageSrc} alt={photo.title} className='detailPage-img' />
+          </div>
+          <p className='my-2 text-lg'><span className='font-semibold'>Description:</span> {photo.description}</p>
+          <p className='my-2 text-lg'>
+            <span className='font-semibold'>Category:</span>{" "}
+            {photo.categories.map((cat, index) => (
+              <span key={cat.id}>
+                {cat.name}
+                {index < photo.categories.length - 1 ? ", " : "."}
+              </span>
+            ))}
+          </p>
+        </div>
+      ) : (
+        <p>Not Found...</p>
+      )}
     </>
   )
 }

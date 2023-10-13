@@ -10,7 +10,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
   };
 
   return (
-    <div className='text-start flex flex-col ps-5 my-6'>
+    <div className='text-start flex flex-col py-5 my-6'>
       <label htmlFor="searchPhoto" className='mb-4 font-semibold text-xl'>Search a photo by title</label>
       <input type="text" id='searchPhoto' name='searchPhoto' placeholder="Search Pizzas" onChange={handleSearch} className="input input-bordered input-primary w-full max-w-xs" />
     </div>

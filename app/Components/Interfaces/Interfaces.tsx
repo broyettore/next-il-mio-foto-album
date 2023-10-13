@@ -7,11 +7,12 @@ export interface Photo {
     imageUrl: null,
     imageFile: string,
     imageSrc: string,
-    categories: Category
+    userId: number,
+    categories: Category[]
 }
 
 export interface Category {
     id: number,
     name: string
-    photos: null,
+    photos: Photo[],
 }

@@ -14,8 +14,8 @@ const MainPage = () => {
             </em>
           </h4>
           <div className="mp-btns">
-            <Link href="/photos" className='btn btn-primary mr-1'>Lorem</Link>
-            <Link href="/create" className='btn btn-info ms-1'>Lorem</Link>
+            <Link href="/photos" className='btn btn-primary mr-1'>Our Gallery</Link>
+            <Link href="https://localhost:7085/Identity/Account/Register" className='btn btn-info ms-1'>Sign Up</Link>
           </div>
       </div>
       <div className="right flex justify-center">

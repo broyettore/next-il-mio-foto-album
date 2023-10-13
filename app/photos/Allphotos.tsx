@@ -39,7 +39,7 @@ const Allphotos = () => {
   return (
     <>
       <SearchBar onSearch={setSearchQuery} />
-      <div className="container h-full flex justify-between flex-wrap p-5">
+      <div className="container h-full flex justify-between flex-wrap py-5">
         {filteredPhotos.map((p) => {
           if (p.isVisible) {
             return (
